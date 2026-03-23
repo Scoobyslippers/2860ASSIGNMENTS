@@ -40,6 +40,7 @@ def recv_line(sock: socket.socket, max_len: int = MAX_FILENAME_LEN) -> bytes:
         data.extend(line)
 
     raise ValueError("The data inputted is too long")
+    #DONE
 
 ##########
 # Server #
@@ -68,7 +69,7 @@ def handle_client(conn: socket.socket, outdir: str) -> None:
         # Sanitize filename (strip directory components).
         filename = os.path.basename(filename)
         if filename == '':
-            
+
             # Send LINE_ERR if invalid filename.
             # TODO: write your code here.
             return
@@ -138,7 +139,7 @@ def run_server(port: int, outdir: str, ipv6: bool) -> None:
             with conn:
                 handle_client(conn, outdir)
     # Create server socket, bind, listen, and accept in an infinite loop.
-    # TODO: write your code here.
+    # DONE: write your code here.
 
 
 ##########
