@@ -30,7 +30,16 @@ def recv_line(sock: socket.socket, max_len: int = MAX_FILENAME_LEN) -> bytes:
     """
     data = bytearray()
     while True:
-        # TODO: write your code here.
+        dataLength = len(data)
+        while dataLength < max_len
+        line = sock.recv(1)
+
+        if line == b'\n':
+            return bytes(data)
+
+        data.extend(line)
+
+    raise ValueError("The data inputted is too long")
 
 ##########
 # Server #
