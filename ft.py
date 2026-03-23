@@ -59,6 +59,8 @@ def handle_client(conn: socket.socket, outdir: str) -> None:
         try:
             filename = raw_line.decode('utf-8')
         except UnicodeDecodeError:
+            
+
             # Send LINE_ERR if filename is not valid UTF-8.
             # TODO: write your code here.
             return
@@ -66,6 +68,7 @@ def handle_client(conn: socket.socket, outdir: str) -> None:
         # Sanitize filename (strip directory components).
         filename = os.path.basename(filename)
         if filename == '':
+            
             # Send LINE_ERR if invalid filename.
             # TODO: write your code here.
             return
@@ -125,6 +128,15 @@ def run_server(port: int, outdir: str, ipv6: bool) -> None:
     """Start the TCP file transfer server."""
     family = socket.AF_INET6 if ipv6 else socket.AF_INET
     bind_addr = '::' if ipv6 else '0.0.0.0'
+
+    with socket.socket(family, socket.SOCK_STREAM) as s:
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        s.bind((bind_addr, port))
+        s.listen()
+        while True:
+            conn, addr = s.accept()
+            with conn:
+                handle_client(conn, outdir)
     # Create server socket, bind, listen, and accept in an infinite loop.
     # TODO: write your code here.
 
